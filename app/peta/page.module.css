@@ -1,0 +1,231 @@
+.page {
+  padding: var(--space-5) 0 var(--space-7);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .container { padding: 0 var(--space-5); }
+}
+
+.header { display: flex; flex-direction: column; gap: var(--space-2); }
+
+.pageTitle {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.15;
+}
+
+.pageDesc {
+  font-size: var(--text-body-large);
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  max-width: 640px;
+}
+
+/* Peta Layout */
+.petaLayout {
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .petaLayout {
+    grid-template-columns: 1fr 280px;
+    align-items: start;
+  }
+}
+
+.petaWrap {
+  background: rgba(246, 242, 231, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(220, 210, 184, 0.5);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-medium);
+}
+
+.petaSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.titikKebun {
+  transition: r 150ms ease-out, opacity 150ms ease-out;
+}
+
+.titikKebun:hover {
+  opacity: 0.85;
+}
+
+.pulseCircle {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; r: 18; }
+  50% { opacity: 0.4; r: 22; }
+}
+
+/* Legend */
+.legend {
+  background: rgba(246, 242, 231, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(220, 210, 184, 0.5);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.legendTitle {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.legendItems {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 767px) {
+  .legendItems {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legendDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.legendLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* Stats */
+.legendStats {
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.legendStatsTitle {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+
+.statRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  flex: 1;
+}
+
+.statCount {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.footerNote {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  line-height: 1.6;
+  font-style: italic;
+  padding: var(--space-3);
+  background: rgba(246, 242, 231, 0.5);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(220, 210, 184, 0.4);
+}
+
+/* Modal */
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.modalNote {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modalLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.modalValue {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.modalNoteText {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}

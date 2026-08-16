@@ -1,0 +1,208 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+// ─────────────────────────────────────────
+// ENUM
+// ─────────────────────────────────────────
+
+enum StatusRisiko {
+  aman
+  waspada
+  risiko_tinggi
+}
+
+enum FasePertumbuhan {
+  vegetatif
+  berbunga
+  panen
+}
+
+enum PeranPengguna {
+  petani
+  penyuluh
+}
+
+enum VarianRekomendasi {
+  eco
+  elevated
+  default
+}
+
+enum MusimPanen {
+  Musim_Hujan
+  Musim_Kemarau
+}
+
+// ─────────────────────────────────────────
+// 1. DESA
+// Master wilayah desa di Kepahiang, Bengkulu
+// ─────────────────────────────────────────
+
+model Desa {
+  id         String   @id
+  nama       String
+  kecamatan  String
+
+  pengguna          Pengguna[]
+  kebun             Kebun[]
+  risiko            Risiko[]
+  curahHujan        CurahHujan[]
+  forumPertanyaan   ForumPertanyaan[]
+}
+
+// ─────────────────────────────────────────
+// 2. PENGGUNA
+// Placeholder autentikasi petani & penyuluh
+// ─────────────────────────────────────────
+
+model Pengguna {
+  id        String        @id @default(cuid())
+  nama      String
+  desaId    String?
+  peran     PeranPengguna @default(petani)
+  createdAt DateTime      @default(now())
+
+  desa          Desa?           @relation(fields: [desaId], references: [id])
+  kebun         Kebun[]
+  riwayatPanen  RiwayatPanen[]
+}
+
+// ─────────────────────────────────────────
+// 3. KEBUN
+// Data kebun petani — dipakai di peta kolektif
+// ─────────────────────────────────────────
+
+model Kebun {
+  id          String          @id @default(cuid())
+  penggunaId  String?
+  namaPetani  String?
+  desaId      String?
+  luasHa      Decimal?        @db.Decimal(6, 2)
+  fase        FasePertumbuhan @default(vegetatif)
+  status      StatusRisiko    @default(aman)
+  catatan     String?
+  cx          Int?            // koordinat X peta SVG
+  cy          Int?            // koordinat Y peta SVG
+  createdAt   DateTime        @default(now())
+
+  pengguna      Pengguna?      @relation(fields: [penggunaId], references: [id])
+  desa          Desa?          @relation(fields: [desaId], references: [id])
+  risiko        Risiko[]
+  riwayatPanen  RiwayatPanen[]
+}
+
+// ─────────────────────────────────────────
+// 4. RISIKO
+// Snapshot hasil cek risiko per kebun per tanggal
+// ─────────────────────────────────────────
+
+model Risiko {
+  id                   String          @id @default(cuid())
+  kebunId              String?
+  desaId               String?
+  status               StatusRisiko
+  fase                 FasePertumbuhan
+  penjelasan           String?
+  suhuRataRata         String?
+  curahHujanPrediksi   String?
+  tanggalCek           DateTime        @default(now()) @db.Date
+  createdAt            DateTime        @default(now())
+
+  kebun  Kebun? @relation(fields: [kebunId], references: [id])
+  desa   Desa?  @relation(fields: [desaId], references: [id])
+}
+
+// ─────────────────────────────────────────
+// 5. CURAH HUJAN
+// Prediksi curah hujan 14 hari per desa
+// ─────────────────────────────────────────
+
+model CurahHujan {
+  id               String       @id @default(cuid())
+  desaId           String?
+  hari             String       // contoh: "H+1", "H+2", dst.
+  curahMm          Decimal      @db.Decimal(7, 2)
+  statusReferensi  StatusRisiko
+  tanggalPrediksi  DateTime     @default(now()) @db.Date
+  createdAt        DateTime     @default(now())
+
+  desa  Desa?  @relation(fields: [desaId], references: [id])
+}
+
+// ─────────────────────────────────────────
+// 6. RIWAYAT PANEN
+// Catatan hasil panen per musim oleh petani
+// ─────────────────────────────────────────
+
+model RiwayatPanen {
+  id          String     @id @default(cuid())
+  kebunId     String?
+  penggunaId  String?
+  musim       MusimPanen
+  tahun       Int
+  hasilKg     Decimal    @db.Decimal(8, 2)
+  catatan     String?
+  tanggal     DateTime   @db.Date
+  createdAt   DateTime   @default(now())
+
+  kebun     Kebun?    @relation(fields: [kebunId], references: [id])
+  pengguna  Pengguna? @relation(fields: [penggunaId], references: [id])
+}
+
+// ─────────────────────────────────────────
+// 7. REKOMENDASI
+// Aksi adaptif berdasarkan status risiko
+// ─────────────────────────────────────────
+
+model Rekomendasi {
+  id            String            @id
+  statusRisiko  StatusRisiko
+  judul         String
+  deskripsi     String
+  aksi          String
+  waktu         String
+  varian        VarianRekomendasi @default(default)
+}
+
+// ─────────────────────────────────────────
+// 8. FORUM PERTANYAAN
+// Pertanyaan dari petani di forum komunitas
+// ─────────────────────────────────────────
+
+model ForumPertanyaan {
+  id         String   @id @default(cuid())
+  penanya    String
+  desaId     String?
+  pertanyaan String
+  tanggal    DateTime @default(now()) @db.Date
+  createdAt  DateTime @default(now())
+
+  desa     Desa?          @relation(fields: [desaId], references: [id])
+  jawaban  ForumJawaban[]
+}
+
+// ─────────────────────────────────────────
+// 9. FORUM JAWABAN
+// Jawaban atas pertanyaan forum
+// ─────────────────────────────────────────
+
+model ForumJawaban {
+  id             String   @id @default(cuid())
+  pertanyaanId   String
+  isi            String
+  penjawab       String
+  tanggal        DateTime @default(now()) @db.Date
+  terverifikasi  Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  pertanyaan  ForumPertanyaan  @relation(fields: [pertanyaanId], references: [id], onDelete: Cascade)
+}

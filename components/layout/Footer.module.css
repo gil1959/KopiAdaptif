@@ -1,0 +1,108 @@
+.footer {
+  background: var(--color-primary);
+  color: var(--color-tertiary);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-forest-green);
+  position: relative;
+  z-index: 10;
+}
+
+.footerInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-5) var(--space-6);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .footerInner {
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--space-4);
+  }
+}
+
+.brandSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 320px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brandIcon {
+  display: flex;
+  align-items: center;
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-tertiary);
+  letter-spacing: -0.01em;
+}
+
+.brandDesc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(246, 242, 231, 0.75);
+}
+
+.linksSection,
+.contactSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.linkTitle {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-tertiary);
+  margin-bottom: var(--space-1);
+}
+
+.footerLink {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(246, 242, 231, 0.75);
+  text-decoration: none;
+  transition: color var(--duration-hover) var(--ease-out);
+}
+
+.footerLink:hover {
+  color: var(--color-tertiary);
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(246, 242, 231, 0.75);
+}
+
+.contactItem svg {
+  color: var(--color-leaf-green);
+  flex-shrink: 0;
+}
+
+.footerBottom {
+  border-top: 1px solid rgba(246, 242, 231, 0.1);
+  padding: var(--space-3) var(--space-5);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: rgba(246, 242, 231, 0.5);
+}

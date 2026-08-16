@@ -1,0 +1,30 @@
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: var(--space-4);
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(47, 74, 52, 0.15); /* light green border */
+  border-top-color: var(--color-leaf-green); /* solid green accent */
+  border-radius: 50%;
+  animation: spin var(--duration-spinner) linear infinite;
+}
+
+.loadingText {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  animation: pulseText 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulseText {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}

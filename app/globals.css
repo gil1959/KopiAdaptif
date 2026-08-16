@@ -1,0 +1,405 @@
+/* ===================================================
+   KOPI BUMI — Design System
+   Design tokens, base styles, components, animations
+   =================================================== */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap');
+
+/* ===================================================
+   1. DESIGN TOKENS — CSS Custom Properties
+   =================================================== */
+
+:root {
+  /* Brand Palette */
+  --color-primary: #2F4A34;
+  --color-secondary: #8C5A34;
+  --color-tertiary: #F6F2E7;
+
+  /* Surface Palette */
+  --color-background: #F6F2E7;
+  --color-surface: #EAE3D2;
+  --color-surface-raised: #DCD2B8;
+  --color-surface-green: #E4EBDD;
+
+  /* Content Palette */
+  --color-text-primary: #2F4A34;
+  --color-text-secondary: #5F6B54;
+  --color-text-tertiary: #A3AC96;
+
+  /* Nature Palette */
+  --color-forest-green: #2F4A34;
+  --color-leaf-green: #5B8A5A;
+  --color-moss-green: #7FA06E;
+  --color-sage-mist: #B7C9A8;
+  --color-roasted-brown: #8C5A34;
+  --color-espresso-dark: #4A2E1E;
+  --color-golden-crema: #D9A441;
+
+  /* Border Palette */
+  --color-border-subtle: #DCD2B8;
+  --color-border-medium: #C6B98F;
+  --color-border-strong: #2F4A34;
+
+  /* Semantic Colors */
+  --color-success: #5B8A5A;
+  --color-warning: #D9A441;
+  --color-error: #A8462F;
+  --color-info: #2F4A34;
+
+  /* Typography */
+  --font-display: 'Fraunces', 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', 'Segoe UI', -apple-system, Helvetica, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', Consolas, monospace;
+
+  /* Type Scale */
+  --text-display: 52px;
+  --text-headline: 36px;
+  --text-subhead: 22px;
+  --text-body-large: 18px;
+  --text-body: 15px;
+  --text-body-small: 13px;
+  --text-caption: 12px;
+  --text-overline: 11px;
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows (warm, slightly green) */
+  --shadow-subtle: 0 1px 2px rgba(47, 74, 52, 0.08);
+  --shadow-medium: 0 4px 12px rgba(47, 74, 52, 0.12);
+  --shadow-large: 0 12px 32px rgba(47, 74, 52, 0.16);
+  --shadow-overlay: 0 24px 64px rgba(47, 74, 52, 0.22);
+
+  /* Motion Durations */
+  --duration-hover: 150ms;
+  --duration-lift: 200ms;
+  --duration-click: 100ms;
+  --duration-modal-in: 250ms;
+  --duration-modal-out: 180ms;
+  --duration-toast: 220ms;
+  --duration-spinner: 800ms;
+  --duration-skeleton: 1200ms;
+  --duration-page: 300ms;
+
+  /* Easings */
+  --ease-out: ease-out;
+  --ease-in: ease-in;
+  --ease-lift: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-modal-in: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-page: ease-in-out;
+}
+
+/* ===================================================
+   2. KEYFRAME ANIMATIONS
+   =================================================== */
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes modalOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes toastProgress {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+@keyframes ambientGlow {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+  33% { transform: translate(3vw, -3vh) scale(1.1); opacity: 0.6; }
+  66% { transform: translate(-3vw, 4vh) scale(0.9); opacity: 0.4; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+}
+
+/* ===================================================
+   3. BASE STYLES & RESET
+   =================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus ring — hijau daun */
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-leaf-green);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea, select {
+  font-family: var(--font-body);
+}
+
+/* ===================================================
+   4. TYPOGRAPHY UTILITIES
+   =================================================== */
+
+.text-display {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.text-headline {
+  font-family: var(--font-display);
+  font-size: var(--text-headline);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.text-subhead {
+  font-family: var(--font-display);
+  font-size: var(--text-subhead);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+.text-body-large {
+  font-family: var(--font-body);
+  font-size: var(--text-body-large);
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.text-body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.text-body-small {
+  font-family: var(--font-body);
+  font-size: var(--text-body-small);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.text-caption {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+.text-overline {
+  font-family: var(--font-body);
+  font-size: var(--text-overline);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+/* ===================================================
+   5. LAYOUT UTILITIES
+   =================================================== */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-5);
+  }
+}
+
+.section-spacing {
+  padding: var(--space-6) 0;
+}
+
+@media (min-width: 768px) {
+  .section-spacing {
+    padding: var(--space-7) 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-spacing {
+    padding: var(--space-8) 0;
+  }
+}
+
+/* ===================================================
+   6. PAGE TRANSITION
+   =================================================== */
+
+.page-enter {
+  animation: fadeIn var(--duration-page) var(--ease-page);
+}
+
+/* ===================================================
+   7. DYNAMIC BACKGROUND & GLASSMORPHISM
+   =================================================== */
+
+.dynamic-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-background);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dynamic-bg::before,
+.dynamic-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: ambientGlow 24s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.dynamic-bg::before {
+  top: -10%;
+  left: -10%;
+  width: 55vw;
+  height: 55vw;
+  background: var(--color-sage-mist);
+  opacity: 0.4;
+}
+
+.dynamic-bg::after {
+  bottom: -15%;
+  right: -10%;
+  width: 60vw;
+  height: 60vw;
+  background: rgba(91, 138, 90, 0.15); /* Leaf Green soft */
+  animation-delay: -12s;
+}
+
+.glass-panel {
+  background: rgba(246, 242, 231, 0.65); /* var(--color-background) with opacity */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(220, 210, 184, 0.5); /* Soft border */
+}
+
+.glass-header {
+  background: rgba(246, 242, 231, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(220, 210, 184, 0.3);
+}

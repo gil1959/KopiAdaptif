@@ -1,0 +1,213 @@
+.page {
+  padding: var(--space-5) 0 var(--space-7);
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-5);
+  }
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  align-self: flex-start;
+  transition: color var(--duration-hover) var(--ease-out);
+}
+
+.backLink:hover {
+  color: var(--color-text-primary);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.headerMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.overline {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.statusChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+}
+
+.chipAman { background-color: #E9F1E5; color: #5B8A5A; border-color: #5B8A5A; }
+.chipWaspada { background-color: #FBF2DF; color: #B88820; border-color: #D9A441; }
+.chipTinggi { background-color: #F7E8E2; color: #A8462F; border-color: #A8462F; }
+
+.pageTitle {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.15;
+}
+
+.pageDesc {
+  font-size: var(--text-body-large);
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+/* Rekomendasi Cards */
+.rekomendasiList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.rekCard {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  transition:
+    box-shadow var(--duration-lift) var(--ease-lift),
+    transform var(--duration-lift) var(--ease-lift);
+}
+
+.rekCard:hover {
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-2px);
+}
+
+.rekCardDefault {
+  background-color: var(--color-background);
+  border-color: var(--color-border-subtle);
+  box-shadow: var(--shadow-subtle);
+}
+
+.rekCardElevated {
+  background-color: var(--color-background);
+  border-top: 4px solid var(--color-leaf-green);
+  border-left-color: var(--color-border-subtle);
+  border-right-color: var(--color-border-subtle);
+  border-bottom-color: var(--color-border-subtle);
+  box-shadow: var(--shadow-subtle);
+}
+
+.rekCardEco {
+  background-color: var(--color-surface-green);
+  border-color: var(--color-sage-mist);
+}
+
+.rekNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+  color: var(--color-tertiary);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.rekBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rekJudul {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.rekDeskripsi {
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.rekMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.rekMetaItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.rekMetaItem svg {
+  flex-shrink: 0;
+  color: var(--color-leaf-green);
+  margin-top: 1px;
+}
+
+/* CTA */
+.ctaSection {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ctaNote {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.ctaRow a {
+  text-decoration: none;
+}
